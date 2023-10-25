@@ -3,7 +3,7 @@
 import numpy as np
 
 
-def summary(a: np.ndarray) -> tuple[float, float, float, float]:
+def summary(a:[int]) -> {float, float, float, float}:
     """
     function that returns the minimum, maximum, mean and standard deviation of an array
     :param a: ndarray
@@ -22,6 +22,7 @@ def summary(a: np.ndarray) -> tuple[float, float, float, float]:
     """
 
     # write your code here
+    return (a.min(), a.max(), a.mean(), a.std())
 
 
 def check_nulls(a: np.ndarray) -> bool:
@@ -40,7 +41,12 @@ def check_nulls(a: np.ndarray) -> bool:
     True
     """
     # write your code here
-
+    a_na=a[np.isnan(a)]
+    
+    if a_na:
+        return False
+    if not a_na:
+        return True
 
 def ith(temperature: np.ndarray, humidity: np.ndarray) -> np.ndarray:
     """
@@ -68,6 +74,9 @@ def ith(temperature: np.ndarray, humidity: np.ndarray) -> np.ndarray:
     ValueError: Shape of data sensors must be the same. Temperature: (2, 2) != humidity: (2, 3)
     """
     # write your code here
+    ITH=((0.8*temperature)+((humidity/100)*(temperature-14.3)))+46.4
+    ITH=np.round(ITH)
+    return ITH
 
 
 def isStress(ith: np.ndarray) -> np.ndarray:
@@ -88,7 +97,7 @@ def isStress(ith: np.ndarray) -> np.ndarray:
            [False, False,  True]])
     """
     # write your code here
-
+    return ith>78
 
 # ------------ test  ----------------#
 import doctest
