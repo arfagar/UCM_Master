@@ -1,5 +1,6 @@
 # imports
 
+
 import numpy as np
 
 
@@ -73,10 +74,15 @@ def ith(temperature: np.ndarray, humidity: np.ndarray) -> np.ndarray:
         ...
     ValueError: Shape of data sensors must be the same. Temperature: (2, 2) != humidity: (2, 3)
     """
-    # write your code here
-    ITH=((0.8*temperature)+((humidity/100)*(temperature-14.3)))+46.4
-    ITH=np.round(ITH)
-    return ITH
+    try:
+        ITH=((0.8*temperature)+((humidity/100)*(temperature-14.3)))+46.4
+        ITH=np.round(ITH)
+        return ITH
+    except ValueError:
+        t=temperature.shape
+        h=humidity.shape
+        print(f"ValueError: Shape of data sensors must be the same. Temperature: {t} != humidity: {h}")
+        
 
 
 def isStress(ith: np.ndarray) -> np.ndarray:
@@ -96,7 +102,6 @@ def isStress(ith: np.ndarray) -> np.ndarray:
     array([[ True, False, False],
            [False, False,  True]])
     """
-    # write your code here
     return ith>78
 
 # ------------ test  ----------------#
