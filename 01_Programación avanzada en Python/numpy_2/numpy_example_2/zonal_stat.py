@@ -2,12 +2,25 @@ import numpy as np
 
 
 def read_data(fname: str, tipo: type) -> np.ndarray:
-    # Escribe aquí tu código
-    # No olvides documentar la función
+   """
+    funtion that returns an array of a file.txt
+    :param fname: str
+        adress of the file in string format
+    :param tipo: type
+        type of the values (float, integer, ...) contained in the file
+    :return: ndarray
+        array containing the data in the selected file
+    """
+    d=np.loadtxt(fname, dtype=tipo)
+    return d 
 
 def set_of_areas(zonas: np.ndarray)-> set[int]:
     """
-
+    function that returns a set of unique zones
+    :param zonas: np.array
+        array of the different zones as intergers
+    :return: set
+        set of individual values for set
     Examples:
     --------
     >>> set_of_areas(np.arange(10).reshape(5, 2))
@@ -21,18 +34,36 @@ def set_of_areas(zonas: np.ndarray)-> set[int]:
         ...
     TypeError: The elements type must be int, not float64
     """
-    # Escribe aquí tu código
-    # No olvides documentar la función
+    return set(np.unique(zonas))
 
-
-
-# def mean_areas ...
-
-    # Escribe aquí el código de la función mean_areas
-    # No olvides documentar la función y escribir las anotaciones de tipos
-    # Añade más ejemplos para doctest
-
-
+def mean_areas(zonas:[int], valores:[float]) ->[float]:
+    
+    """
+    function that returns the average value of valores for each zone
+    :param zonas: ndarray
+        array with zones markated as different integers
+    param valores: ndarray
+        array with a values for each zone
+    :return: ndarray
+       array same size as input with the mean of the values per zone
+    Examples
+    --------
+    >>> mean_areas(np.array([1, 1, 2, 2]),np.array([1,9,4,6]))
+    array([5., 5., 5., 5.])
+    >>> mean_areas(np.array([1, 1, 2, 2]),np.array([1,10,4,7]))
+    array([5.5, 5.5, 5.5, 5.5])
+    >>> mean_areas(np.array([1, 1, 2, 2, 5]),np.array([1,10,4,7]))
+    IndexError: input arrays are not equal in shape. valores size:(4,) and zonas size: (5,)
+    
+    """
+    try:
+        calculo=np.array([np.mean(valores[zonas==x]) for x in zonas.flatten()])
+        return np.around(calculo.reshape(np.shape(zonas)), decimals=1)
+    except IndexError:
+        
+        print(f"IndexError: input arrays are not equal in shape. valores size:{valores.shape} and zonas size: {zonas.shape}")
+        
+        
 
 # ------------ test  --------#
 import doctest
@@ -50,3 +81,4 @@ def test_doc()-> None:
 
 if __name__ == "__main__":
     test_doc()   # executing tests
+
