@@ -34,7 +34,9 @@ def set_of_areas(zonas: np.ndarray)-> set[int]:
         ...
     TypeError: The elements type must be int, not float64
     """
-    return set(np.unique(zonas))
+   if zonas.dtype!= int:
+        raise TypeError("The elements type must be int, not float64")  
+   return set(np.unique(zonas))
 
 def mean_areas(zonas:[int], valores:[float]) ->[float]:
     
